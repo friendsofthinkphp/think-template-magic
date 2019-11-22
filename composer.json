@@ -1,0 +1,29 @@
+{
+    "name": "xiaodi/think-template-magic",
+    "description": "ThinkPHP Template Componant",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xiaodi",
+            "email": "liangjinbiao@live.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "xiaodi\\": "src/"
+        }
+    },
+    "extra": {
+        "think": {
+            "services": [
+                "xiaodi\\TemplateMagicService"
+            ],
+            "config": {
+                "template_magic": "config/config.php"
+            }
+        }
+    }
+}
