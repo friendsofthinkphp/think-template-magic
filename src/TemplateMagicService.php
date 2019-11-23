@@ -6,8 +6,10 @@ namespace xiaodi;
 
 use \Closure;
 use \Exception;
+use \ReflectionClass;
 use think\Service;
 use xiaodi\Contracts\TemplateMagicHandleInterface;
+use think\Container;
 
 class TemplateMagicService  extends Service
 {
@@ -28,22 +30,22 @@ class TemplateMagicService  extends Service
      *
      * @return void
      */
-    public function boot()
+    public function boot(TemplateMagic $magic)
     {
         $config = config('template_magic');
-        if ($config['handle']) {
-            if ($config['handle'] instanceof Closure) {
-                // TODO
-            } else {
-                $handle = new $config['handle'];
+        $handle = $config['handle'];
 
-                if (false === $handle instanceof TemplateMagicHandleInterface) {
-                    throw new Exception('class '.$config['handle'] . ' is not instanceof \xiaodi\Contracts\TemplateMagicHandleInterface');
-                }
-
-                $magic = new TemplateMagic();
-                $handle->handle($magic);
+        if (false == empty($handle)) {
+            if ($handle instanceof Closure) {
+                return Container::getInstance()->invokeFunction($handle, [$magic]);
             }
+
+            $obj = new ReflectionClass($handle);
+            if (false === $obj->implementsInterface(TemplateMagicHandleInterface::class)) {
+                throw new Exception('class ' . $handle . ' is not instanceof \xiaodi\Contracts\TemplateMagicHandleInterface');
+            }
+
+            Container::getInstance()->invokeClass($handle)->handle($magic);
         }
     }
 }

@@ -32,10 +32,23 @@ class Replace implements TemplateMagicHandleInterface
 
 ### 配置
 `config/template_magic.php`
+
 ```php
 use app\Replace;
 
 return [
     'handle' => Replace::class
 ]
+```
+
+支持闭包
+```php
+use xiaodi\Contracts\TemplateMagicReplaceInterface;
+
+return [
+    'handle' => function (TemplateMagicReplaceInterface $handle) {
+        $handle->head('<link rel="stylesheet" href="https://static.kodcloud.com/index/js/lib/bootstrap-3.3.7/css/bootstrap.min.css">');
+    }
+];
+
 ```
