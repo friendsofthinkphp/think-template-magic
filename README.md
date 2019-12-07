@@ -52,3 +52,7 @@ return [
 ];
 
 ```
+
+### func
+* `$handle->head($content)` 插入内容到`</head>`标签前
+* `$handle->body($content)` 插入内容到`</body>`标签前
