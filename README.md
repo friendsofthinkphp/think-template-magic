@@ -7,7 +7,7 @@
 
 ## 安装
 ```sh
-$ composer require xiaodi/think-templte-magic:dev-master
+$ composer require xiaodi/think-templte-magic
 ```
 
 ## 使用
